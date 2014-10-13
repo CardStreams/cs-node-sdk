@@ -1,4 +1,4 @@
-var sdk = require('../api.js');
+var sdk = require('../index.js');
 
 var api_id = "54340b777fb1f2e550000033";
 var api_key = "8f9c88c5-1a10-468c-982b-f8708d29e8ad";
@@ -33,9 +33,9 @@ sdk.api('/timeline/54340d7f7fb1f2e550000036', 'POST', data, function(data) {
   console.log(data)
 });
 
-sdk.createCard({
+// sdk.createCard({
 
-})
+// })
 
 // sdk.subscribe('channel_name', function(data) {
 //   console.log(data);
