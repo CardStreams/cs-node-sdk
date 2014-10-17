@@ -27,3 +27,5 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 >>>>>>> eb1f409688f52ee84559e766bb2c688e36632ccc
+
+.DS_Store

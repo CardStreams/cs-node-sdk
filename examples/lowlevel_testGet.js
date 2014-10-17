@@ -1,7 +1,4 @@
 var sdk = require('../index.js');
-// sdk.init({ /* api key and stuff */});
-// sdk.createUser(/* params */);
-
 
 sdk.init({
   api_id: "54340b777fb1f2e550000033",
@@ -11,7 +8,3 @@ sdk.init({
 sdk.api('/timeline/54340d7f7fb1f2e550000036', 'GET', function(data) {
   console.log(data)
 });
-
-// sdk.subscribe('channel_name', function(data) {
-//   console.log(data);
-// })

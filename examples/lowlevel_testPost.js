@@ -10,33 +10,9 @@ sdk.init({
 });
 
 var data = {
-  "description": "test post",
-  "postAt": (Date.now() / 1000) | 0,
-  "location": {
-      "latitude": 0,
-      "longitude": 0,
-  },
-  "eventData": {
-      "title": "Event name",
-      "details": "No dress code",
-      "location": {
-          "latitude": 0.10101,
-          "longitude": 10.0202
-      },
-      "startTime": (Date.now() / 1000) | 0,
-      "endTime": (Date.now() + 100 / 1000) | 0
-  },
-  "attachments": []
+  "description": "test post"
 };
 
 sdk.api('/timeline/54340d7f7fb1f2e550000036', 'POST', data, function(data) {
   console.log(data)
 });
-
-// sdk.createCard({
-
-// })
-
-// sdk.subscribe('channel_name', function(data) {
-//   console.log(data);
-// })
