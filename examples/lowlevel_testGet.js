@@ -1,10 +1,12 @@
 var sdk = require('../index.js');
 
+var consumer_key = "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh";
+
 sdk.init({
-  api_id: "54340b777fb1f2e550000033",
-  api_key: "8f9c88c5-1a10-468c-982b-f8708d29e8ad"
+  "consumer_key": consumer_key,
+  "api_url": "https://lifestreams-test.apigee.net/ls-dev/beta1"
 });
 
-sdk.api('/timeline/54340d7f7fb1f2e550000036', 'GET', function(data) {
+sdk.api('/timelines', 'GET', function(data) {
   console.log(data)
 });

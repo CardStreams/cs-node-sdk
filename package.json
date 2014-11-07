@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "lodash": "^2.4.1",
-    "ls-glucose": "lifestreams/ls-glucose"
+    "ls-glucose": "lifestreams/ls-glucose",
+    "request": "2.47.0"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",

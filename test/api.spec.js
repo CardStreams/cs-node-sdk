@@ -1,7 +1,5 @@
 var sdk = require("../index.js");
-var https = require("https");
 var Mitm = require('mitm');
-var nock = require('nock');
 
 describe("sdk", function() {
 
@@ -112,14 +110,6 @@ describe("sdk", function() {
 
       sdk.api("/t", "post", function(){});
 
-    });
-
-    it("should set Content-type to application/json", function(done) {
-      mitm.on("request", function(req, resp) {
-        expect(req.headers["content-type"]).toBe("application/json;charset=UTF-8");
-        done();
-      })
-      sdk.api("/t", "POST", function(){});
     });
 
     it("should set the X-Lisestreams-ConsumerKey request header", function(done) {
