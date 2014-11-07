@@ -1,17 +1,17 @@
 {
   "name": "ls-node-sdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "LifeStreams Node.js SDK",
   "main": "index.js",
   "scripts": {
     "test": "jasmine-node test/",
     "install-dev": "npm install -g jasmine-node@2.0.0-beta4 mitm"
   },
-  "author": "Lifestreams.com, Szymon Pilkowski <szymon.pilkowski@gmail.com>",
+  "author": "Lifestreams.com, Szymon Pilkowski <szymon.pilkowski@gmail.com> & Lukas Nowacki <lucjan.nowacki@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "sha1": "^1.1.0",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "ls-glucose": "lifestreams/ls-glucose"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",

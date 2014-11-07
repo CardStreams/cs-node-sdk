@@ -5,7 +5,7 @@ Lifestreams Node SDK provides a set of methods to interact with Lifestreams API 
 
 Prerequisites
 -------------
-In order to be able to use the SDK and the API, access key and api id need to be generated in the API Management Tool [LINK]
+In order to be able to use the SDK and the API, consumer key needs to be generated in the Developer Portal which can be accessed at http://dev-lifestreams.devportal.apigee.com
 
 Installation
 -----------
@@ -20,8 +20,7 @@ Initialization
 ```javascript
 var LS = require('ls-node-sdk');
 LS.init({
-    api_key: "YOUR_API_KEY",
-    api_id: "YOUR_API_ID"
+    consumer_key: "YOUR_CONSUMER_KEY"
 });
 ```
 
@@ -29,7 +28,7 @@ Initialization method accepts the following optional parameters:
 
 | param name | description | type
 | --- | --- | --- |
-| api_user | A user id, which, if provided informs the backend to consider the given user as logged in. | String |
+| api_user | API user, passed as one of the stringified objects: {"username":"username"} or {"userId":"userId"} | String |
 | api_url | API endpoint URL, by default pointing to the latest production instance | String |
 | socket_url | Socket endpoint URL, by default pointing to the latest production instance | String |
 
@@ -180,6 +179,25 @@ name | description | type | required
 data | Create a new timeline. The request body should contain the following properties: *name*: A name or title (not necessarily unique) for the timeline (required); *description*: (optional) A description of the timeline | Object | true
 callback | A callback to handle errors and response data | Function | true
 
+## LS.deleteTimeline()
+Delete a timeline.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.updateTimeline()
+Update a timeline.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+data | The request body should contain the following properties: *name*: A name or title (not necessarily unique) for the timeline (required); *description*: (optional) A description of the timeline | Object | true
+callback | A callback to handle errors and response data | Function | true
+
 ## LS.getCards()
 Obtain cards from a given timeline.
 ### Parameters
@@ -245,6 +263,28 @@ name | description | type | required
 timelineID | A timeline ID string | String | true
 cardID | A card ID string | String | true
 data | A data object containing modified information about a card. | Object | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.getComment()
+Retrieve a single comment.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+cardID | A card ID string | String | true
+commentID | A comment ID string | String | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.deleteComment()
+Delete a comment.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+cardID | A card ID string | String | true
+commentID | A comment ID string | String | true
 callback | A callback to handle errors and response data | Function | true
 
 Testing
