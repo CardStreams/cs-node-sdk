@@ -1,11 +1,11 @@
 var sdk = require('../index.js');
 
-var consumer_key = "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh";
 var path = "/timelines";
 
 sdk.init({
-  "consumer_key": consumer_key,
-  "api_url": "https://lifestreams-test.apigee.net/ls-dev/beta1"
+  "app_id": "91312294",
+  "app_key": "9fce4bb6bc33d780002fda854e6aaa03",
+  "api_url": "https://dev.lifestreams.com:6100/beta1"
 });
 
 var data = {

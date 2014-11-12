@@ -5,7 +5,7 @@ Lifestreams Node SDK provides a set of methods to interact with Lifestreams API 
 
 Prerequisites
 -------------
-In order to be able to use the SDK and the API, consumer key needs to be generated in the Developer Portal which can be accessed at http://dev-lifestreams.devportal.apigee.com
+In order to be able to use the SDK and the API, app_id and app_key need to be generated in the Developer Portal
 
 Installation
 -----------
@@ -20,7 +20,8 @@ Initialization
 ```javascript
 var LS = require('ls-node-sdk');
 LS.init({
-    consumer_key: "YOUR_CONSUMER_KEY"
+    app_id: "YOUR_3SCALE_APP_ID",
+    app_key: "YOUR_3SCALE_APP_KEY
 });
 ```
 
@@ -30,7 +31,6 @@ Initialization method accepts the following optional parameters:
 | --- | --- | --- |
 | api_user | API user, passed as one of the stringified objects: {"username":"username"} or {"userId":"userId"} | String |
 | api_url | API endpoint URL, by default pointing to the latest production instance | String |
-| socket_url | Socket endpoint URL, by default pointing to the latest production instance | String |
 
 Usage
 -----

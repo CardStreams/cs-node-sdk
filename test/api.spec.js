@@ -9,25 +9,38 @@ describe("sdk", function() {
       spyOn(sdk, "init");
 
       sdk.init({
-        consumer_key: "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
 
       expect(sdk.init).toHaveBeenCalled();
     });
 
-    it("should not throw an Error when configuration object contains consumer_key", function() {
+    it("should not throw an Error when configuration object contains app_key and app_id", function() {
 
       expect(function() {
         sdk.init({
-          consumer_key: "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh"
+          "app_id": "91312294",
+          "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
         });
       }).not.toThrow();
     });
 
-    it("should throw an Error when consumer_key is not provided", function() {
+    it("should throw an Error when app_id is not provided", function() {
 
       expect(function() {
-        sdk.init({});
+        sdk.init({
+          "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
+        });
+      }).toThrow();
+    });
+
+    it("should throw an Error when app_key is not provided", function() {
+
+      expect(function() {
+        sdk.init({
+          "app_id": "91312294"
+        });
       }).toThrow();
     });
 
@@ -36,8 +49,6 @@ describe("sdk", function() {
   describe("SDK#api", function() {
 
     var mitm;
-    var req;
-    var resp;
 
     beforeEach(function() {
 
@@ -52,7 +63,8 @@ describe("sdk", function() {
       };
 
       sdk.init({
-        consumer_key: "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
 
     });
@@ -70,7 +82,8 @@ describe("sdk", function() {
     it("should set request endpoint properly with a default url", function(done) {
 
       sdk.init({
-        consumer_key: "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
 
       var url = "https://api.lifestreams.com/beta1/mocktest";
@@ -88,8 +101,9 @@ describe("sdk", function() {
       var url = "http://mocktest/t";
 
       sdk.init({
-        consumer_key: "SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh",
-        api_url: "http://mocktest"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03",
+        "api_url": "http://mocktest"
       });
 
       mitm.on("request", function(req, resp) {
@@ -112,9 +126,17 @@ describe("sdk", function() {
 
     });
 
-    it("should set the X-Lisestreams-ConsumerKey request header", function(done) {
+    it("should set the X-Lifestreams-3scale-AppId request header", function(done) {
       mitm.on("request", function(req, resp) {
-        expect(req.headers["x-lifestreams-consumerkey"]).toBe("SlNgHQlVduKKNWkezPxe0dfEHIP2dlTh");
+        expect(req.headers["x-lifestreams-3scale-appid"]).toBe("91312294");
+        done();
+      });
+      sdk.api("/t", "POST", function(){});
+    });
+
+    it("should set the X-Lifestreams-3scale-AppKey request header", function(done) {
+      mitm.on("request", function(req, resp) {
+        expect(req.headers["x-lifestreams-3scale-appkey"]).toBe("9fce4bb6bc33d780002fda854e6aaa03");
         done();
       });
       sdk.api("/t", "POST", function(){});
