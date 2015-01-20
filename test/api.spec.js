@@ -1,8 +1,5 @@
 var sdk = require("../index.js");
-var http = require("http");
-var sha1sum = require('sha1'); // replace with native 'crypto' module?
 var Mitm = require('mitm');
-var nock = require('nock');
 
 describe("sdk", function() {
 
@@ -12,37 +9,37 @@ describe("sdk", function() {
       spyOn(sdk, "init");
 
       sdk.init({
-        api_id: "53e21090dd574893d4000024",
-        api_key: "53298519-5d13-454d-99be-4c0fe22ced88"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
 
       expect(sdk.init).toHaveBeenCalled();
     });
 
-    it("should not throw an Error when configuration object contains API KEY and API ID", function() {
+    it("should not throw an Error when configuration object contains app_key and app_id", function() {
 
       expect(function() {
         sdk.init({
-          api_id: "53e21090dd574893d4000024",
-          api_key: "53298519-5d13-454d-99be-4c0fe22ced88"
+          "app_id": "91312294",
+          "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
         });
       }).not.toThrow();
     });
 
-    it("should throw an Error when api_key is not provided", function() {
+    it("should throw an Error when app_id is not provided", function() {
 
       expect(function() {
         sdk.init({
-          api_id: "53e21090dd574893d4000024"
+          "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
         });
       }).toThrow();
     });
 
-    it("should throw an Error when api_id is not provided", function() {
+    it("should throw an Error when app_key is not provided", function() {
 
       expect(function() {
         sdk.init({
-          api_key: "53298519-5d13-454d-99be-4c0fe22ced88"
+          "app_id": "91312294"
         });
       }).toThrow();
     });
@@ -52,8 +49,6 @@ describe("sdk", function() {
   describe("SDK#api", function() {
 
     var mitm;
-    var req;
-    var resp;
 
     beforeEach(function() {
 
@@ -68,11 +63,9 @@ describe("sdk", function() {
       };
 
       sdk.init({
-        api_id: "53e21090dd574893d4000024",
-        api_key: "53298519-5d13-454d-99be-4c0fe22ced88"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
-
-      // http.get('http://localhost:6100/v2/mock');
 
     });
 
@@ -89,14 +82,14 @@ describe("sdk", function() {
     it("should set request endpoint properly with a default url", function(done) {
 
       sdk.init({
-        api_id: "53e21090dd574893d4000024",
-        api_key: "53298519-5d13-454d-99be-4c0fe22ced88",
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03"
       });
 
-      var url = "http://localhost:6100/v2/mocktest";
+      var url = "https://api.lifestreams.com/beta1/mocktest";
 
       mitm.on("request", function(req, resp) {
-        expect("http://" + req.headers.host + req.url).toBe(url);
+        expect("https://" + req.headers.host + req.url).toBe(url);
         done();
       });
 
@@ -108,9 +101,9 @@ describe("sdk", function() {
       var url = "http://mocktest/t";
 
       sdk.init({
-        api_id: "53e21090dd574893d4000024",
-        api_key: "53298519-5d13-454d-99be-4c0fe22ced88",
-        api_url: "http://mocktest"
+        "app_id": "91312294",
+        "app_key": "9fce4bb6bc33d780002fda854e6aaa03",
+        "api_url": "http://mocktest"
       });
 
       mitm.on("request", function(req, resp) {
@@ -133,35 +126,17 @@ describe("sdk", function() {
 
     });
 
-    it("should set Content-type to application/json", function(done) {
+    it("should set the X-Lifestreams-3scale-AppId request header", function(done) {
       mitm.on("request", function(req, resp) {
-        expect(req.headers["content-type"]).toBe("application/json;charset=UTF-8");
-        done();
-      })
-      sdk.api("/t", "POST", function(){});
-    });
-
-    it("should set the X-Auth-ApiKeyId request header", function(done) {
-      mitm.on("request", function(req, resp) {
-        expect(req.headers["x-auth-apikeyid"]).toBe("53e21090dd574893d4000024");
+        expect(req.headers["x-lifestreams-3scale-appid"]).toBe("91312294");
         done();
       });
       sdk.api("/t", "POST", function(){});
     });
 
-    it("should set the X-Auth-Timestamp request header", function(done) {
+    it("should set the X-Lifestreams-3scale-AppKey request header", function(done) {
       mitm.on("request", function(req, resp) {
-        expect(req.headers["x-auth-timestamp"]).toBe("" + (Date.now() / 1000 | 0));
-        done();
-      });
-      sdk.api("/t", "POST", function(){});
-    });
-
-    it("should set the signature hash correctly", function(done) {
-      mitm.on("request", function(req, resp) {
-        var timestamp = Date.now() / 1000 | 0
-        var hash = sha1sum("53298519-5d13-454d-99be-4c0fe22ced88" + timestamp, "TEXT");
-        expect(req.headers["x-auth-signature"]).toBe(hash);
+        expect(req.headers["x-lifestreams-3scale-appkey"]).toBe("9fce4bb6bc33d780002fda854e6aaa03");
         done();
       });
       sdk.api("/t", "POST", function(){});

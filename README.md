@@ -5,7 +5,7 @@ Lifestreams Node SDK provides a set of methods to interact with Lifestreams API 
 
 Prerequisites
 -------------
-In order to be able to use the SDK and the API, access key and api id need to be generated in the API Management Tool [LINK]
+In order to be able to use the SDK and the API, app_id and app_key need to be generated in the Developer Portal
 
 Installation
 -----------
@@ -20,8 +20,8 @@ Initialization
 ```javascript
 var LS = require('ls-node-sdk');
 LS.init({
-    api_key: "YOUR_API_KEY",
-    api_id: "YOUR_API_ID"
+    app_id: "YOUR_3SCALE_APP_ID",
+    app_key: "YOUR_3SCALE_APP_KEY
 });
 ```
 
@@ -29,9 +29,8 @@ Initialization method accepts the following optional parameters:
 
 | param name | description | type
 | --- | --- | --- |
-| api_user | A user id, which, if provided informs the backend to consider the given user as logged in. | String |
+| api_user | API user, passed as one of the stringified objects: {"username":"username"} or {"userId":"userId"} | String |
 | api_url | API endpoint URL, by default pointing to the latest production instance | String |
-| socket_url | Socket endpoint URL, by default pointing to the latest production instance | String |
 
 Usage
 -----
@@ -73,86 +72,6 @@ LS.api("/timeline", "post", {
     }
 });
 ```
-## LS.getUser()
-Retrieve details about a user.
-
-### Parameters
-name | description | type | required
---- | --- | --- | ---
-userId | A user ID string | String | true
-callback | A callback to handle errors and response data | Function | true
-
-Example:
-
-```javascript
-LS.getUser("527c14962e6dd7c17e000015", function(err, data) {
-    if (!err) {
-        console.log(data);
-    } else {
-        throw err;
-    }
-
-});
-```
-
-## LS.getUsers()
-List the users created under the scope of the authenticated application.
-
-### Parameters
-name | description | type | required
---- | --- | --- | ---
-callback | A callback to handle errors and response data | Function | true
-
-## LS.createUser()
-Create an application user.
-
-### Parameters
-name | description | type |required
---- | --- | --- | ---
-data | A data object with user information, currently supported properties: username, description, email, userAvatar | Object | true
-callback | A callback to handle errors and response data | Function | true
-
-Example:
-
-```javascript
-LS.createUser(data, function(err, response) {
-    if (!err) {
-        console.log("User created: " + reponse._id);
-    } else {
-        // handle errors
-    }
-});
-```
-
-## LS.getMemberships()
-Retrieve a list of memberships for a given user.
-
-### Parameters
-name | description | type | required
---- | --- | --- | ---
-userId | A user ID string | String | true
-callback | A callback to handle errors and response data | Function | true
-
-## LS.getMembership()
-Retrieve a user membership information in a given timeline scope.
-
-### Parameters
-name | description | type | required
---- | --- | --- | ---
-userId | A user ID string | String | true
-timelineId | A timeline ID string | String | true
-callback | A callback to handle errors and response data | Function | true
-
-## LS.updateMembership()
-Modify a membership information for a given user and timeline.
-
-### Parameters
-name | description | type | required
---- | --- | --- | ---
-userId | A user ID string | String | true
-timelineId | A timeline ID string | String | true
-data | An object containing data to modify | Object | true
-callback | A callback to handle errors and response data | Function | true
 
 ## LS.getTimelines()
 Retrieve a list of timelines available for authenticated user.
@@ -178,6 +97,25 @@ Create a new timeline.
 name | description | type | required
 --- | --- | --- | ---
 data | Create a new timeline. The request body should contain the following properties: *name*: A name or title (not necessarily unique) for the timeline (required); *description*: (optional) A description of the timeline | Object | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.deleteTimeline()
+Delete a timeline.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.updateTimeline()
+Update a timeline.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+data | The request body should contain the following properties: *name*: A name or title (not necessarily unique) for the timeline (required); *description*: (optional) A description of the timeline | Object | true
 callback | A callback to handle errors and response data | Function | true
 
 ## LS.getCards()
@@ -245,6 +183,28 @@ name | description | type | required
 timelineID | A timeline ID string | String | true
 cardID | A card ID string | String | true
 data | A data object containing modified information about a card. | Object | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.getComment()
+Retrieve a single comment.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+cardID | A card ID string | String | true
+commentID | A comment ID string | String | true
+callback | A callback to handle errors and response data | Function | true
+
+## LS.deleteComment()
+Delete a comment.
+
+### Parameters
+name | description | type | required
+--- | --- | --- | ---
+timelineID | A timeline ID string | String | true
+cardID | A card ID string | String | true
+commentID | A comment ID string | String | true
 callback | A callback to handle errors and response data | Function | true
 
 Testing

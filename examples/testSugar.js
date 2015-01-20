@@ -1,8 +1,9 @@
 var sdk = require('../lib/api.js');
 
 sdk.init({
-  api_id: "54340b777fb1f2e550000033",
-  api_key: "8f9c88c5-1a10-468c-982b-f8708d29e8ad"
+  "app_id": "91312294",
+  "app_key": "9fce4bb6bc33d780002fda854e6aaa03",
+  "api_url": "https://dev.lifestreams.com:6100/beta1"
 });
 
 var data = {
